@@ -23,15 +23,15 @@ class Mailing {
       }
     }
     
-    $mail = new PHPMailer; 
+    $mail = new PHPMailer;
     // $mail->SMTPDebug = 3; // Enable verbose debug output. This wil mean you need to return $mail and catch it where you call the function
     $mail->isSMTP();
     $mail->Host = MailSendHost;
     $mail->SMTPAuth = true;
     $mail->Username = MailSendUserName."@".$hostName;
     $mail->Password = MailSendUserPass;
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port = 465;         
+    $mail->SMTPSecure = MailSMTPSecurity;
+    $mail->Port = MailSMTPPort;
     
     $mail->setFrom(MailSendUserName."@".$hostName, MailSendUserTitle);
 
@@ -63,7 +63,7 @@ class Mailing {
     $mail->isHTML(true);
     $mail->Subject = $Subject;
     $mail->Body    = $Message;
-    $mail->AltBody = 'Your mail client does not support HTML. Consider using another client';
+    $mail->AltBody = MailAltBody;
     
     $mail->send();
   }
